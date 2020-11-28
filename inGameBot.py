@@ -4,17 +4,25 @@ import os
 from time import time
 from windowCapture import WindowCapture
 from vision import Vision
+from hsvFilter import HsvFilter
 
 wincap  = WindowCapture("League of Legends (TM) Client")
-blueBuff = Vision("minion.png")
+minion = Vision("blueBuffHsv.png")
+minion.init_control_gui()
+
+hsv_filter = HsvFilter(64, 217, 137, 119, 255, 255, 255, 24, 73, 0)
 
 loop_time = time()
 while True:
    
+
    screenshot = wincap.get_screenshot()
+   zFiltrami = minion.use_hsv_filter(screenshot, hsv_filter)
+   rectangles = minion.find(zFiltrami, 0.35)
    
-   points = blueBuff.find(screenshot, 0.35, "rectangles")
-   #cv.imshow("Liga", screenshot)
+   wyjscie    = minion.draw_rectangles(screenshot, rectangles)
+
+   cv.imshow("Liga", wyjscie)
 
    print("FPS {}".format(1 / (time() - loop_time)))
    loop_time = time()
