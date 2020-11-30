@@ -9,6 +9,7 @@ class Vision:
     szukana_w = 0
     suzkana_h = 0
     method = None
+    color = None
 
 
     # Typy metod szukania https://docs.opencv.org/master/d4/dc6/tutorial_py_template_matching.html
@@ -55,10 +56,21 @@ class Vision:
         return points
 
 
-    def draw_rectangles(self, obraz, rectangles):
+    def draw_rectangles(self, obraz, rectangles, color="green"):
 
-        line_color = (0, 255, 0)
-        line_type  = cv.LINE_4
+
+        if color == "green":
+            line_color = (0, 255, 0)
+            line_type  = cv.LINE_4
+
+        elif color == "red":
+            line_color = (0, 0, 255)
+            line_type  = cv.LINE_4
+
+        elif color == "blue":
+            line_color = (255, 0, 0)
+            line_type  = cv.LINE_4
+
 
         for (x, y, w, h) in rectangles:
 
@@ -70,10 +82,20 @@ class Vision:
         return obraz
 
 
-    def draw_crosses(self, obraz, points):
+    def draw_crosses(self, obraz, points, color="green"):
 
-        cross_color = (255, 0, 255)
-        cross_type  = cv.MARKER_CROSS
+
+        if color == "green":
+            cross_color = (0, 255, 0)
+            cross_type  = cv.MARKER_CROSS
+
+        elif color == "red":
+            cross_color = (0, 0, 255)
+            cross_type  = cv.MARKER_CROSS
+
+        elif color == "blue":
+            cross_color = (255, 0, 0)
+            cross_type  = cv.MARKER_CROSS
 
         for (center_x, center_y) in points:
 
