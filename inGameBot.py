@@ -7,20 +7,22 @@ from vision import Vision
 from hsvFilter import HsvFilter
 
 wincap  = WindowCapture("League of Legends (TM) Client")
-minion = Vision("blueBuffHsv.png")
+minion = Vision("minion.png")
+enemyMinion = Vision("enemy.png")
 minion.init_control_gui()
 
-hsv_filter = HsvFilter(64, 217, 137, 119, 255, 255, 255, 24, 73, 0)
+#hsv_filter = HsvFilter()
 
 loop_time = time()
 while True:
    
 
    screenshot = wincap.get_screenshot()
-   zFiltrami = minion.use_hsv_filter(screenshot, hsv_filter)
-   rectangles = minion.find(zFiltrami, 0.35)
+   #wyjscie = zFiltrami  = minion.use_hsv_filter(screenshot)
+   rectangles = minion.find(screenshot, 0.4)
    
-   wyjscie    = minion.draw_rectangles(screenshot, rectangles)
+   wyjscie  = minion.draw_rectangles(screenshot, rectangles, "green")
+   
 
    cv.imshow("Liga", wyjscie)
 
@@ -30,3 +32,4 @@ while True:
    if cv.waitKey(1) == ord("q"):
       cv.destroyAllWindows() 
       break
+
